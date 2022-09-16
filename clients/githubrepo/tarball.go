@@ -122,6 +122,8 @@ func (handler *tarballHandler) getTarball() error {
 	if err != nil {
 		return fmt.Errorf("http.NewRequestWithContext: %w", err)
 	}
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("GITHUB_AUTH_TOKEN")))
+
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return fmt.Errorf("http.DefaultClient.Do: %w", err)
